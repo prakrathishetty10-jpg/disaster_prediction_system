@@ -1,0 +1,10 @@
+# Core dependencies for Earthquake Prediction System
+Pillow>=11.0.0
+pandas>=2.3.0
+PyMySQL>=1.1.0
+geopy>=2.4.0
+pygame>=2.6.0
+requests>=2.32.0
+
+# Note: tkinter is included with Python by default
+# Note: math, threading, time, datetime, json are built-in Python modules

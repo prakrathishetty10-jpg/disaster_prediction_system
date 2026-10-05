@@ -1,9 +1,29 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
-*.db
-*.zip
-Saved Pictures/
-.env
+
+# Virtual environments
 venv/
 .venv/
+env/
+
+# Database
+*.db
+
+# Archives
+*.zip
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Local folders
+Saved Pictures/

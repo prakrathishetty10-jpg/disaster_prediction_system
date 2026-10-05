@@ -1,38 +1,134 @@
-# Earthquake Prediction System
+# 🌍 Earthquake Prediction System
 
-A real-time earthquake risk prediction system that integrates with USGS (United States Geological Survey) data to provide accurate earthquake predictions based on geographic coordinates.
+A Python-based **earthquake risk assessment system** that integrates earthquake data from the **USGS (United States Geological Survey)** and evaluates earthquake risk based on geographic coordinates.
 
-## Features
+The system allows users to enter latitude and longitude coordinates, retrieve recent earthquake information, analyze earthquake magnitude and proximity, calculate a risk level, and maintain prediction history.
 
-- **Real-time USGS Data Integration**: Automatically fetches earthquake data from USGS API every 10 minutes
-- **Coordinate-based Prediction**: Enter latitude and longitude to get earthquake risk assessment
-- **Advanced Risk Analysis**: Uses weighted algorithms based on nearby earthquake data
-- **Location Detection**: Automatic reverse geocoding to identify location names
-- **User Authentication**: Secure login and registration system
-- **Password Recovery**: Forgot password functionality
-- **Prediction History**: Track all your earthquake predictions
-- **Audio Alerts**: Different sound alerts based on risk level
+## 🚀 Features
 
-## Installation
+* 🌐 **Real-Time USGS Data Integration**
 
-1. **Install Python Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+  * Retrieves recent earthquake information from the USGS API.
+  * Automatically refreshes earthquake data periodically.
 
-2. **Database Setup**:
-   - Install MySQL/MariaDB
-   - Create a database named `alpha`
-   - Create the required tables (see Database Schema below)
+* 📍 **Coordinate-Based Risk Assessment**
 
-3. **Run the Application**:
-   ```bash
-   python test1.py
-   ```
+  * Accepts latitude and longitude as input.
+  * Validates geographic coordinates before processing.
 
-## Database Schema
+* 📊 **Earthquake Risk Analysis**
+
+  * Analyzes nearby earthquake activity.
+  * Considers earthquake magnitude and distance.
+  * Uses weighted calculations based on earthquake proximity.
+
+* 🗺️ **Location Detection**
+
+  * Uses reverse geocoding to convert coordinates into human-readable location information.
+
+* 🔐 **User Authentication**
+
+  * User registration and login functionality.
+  * Password recovery support.
+
+* 📜 **Prediction History**
+
+  * Stores previous earthquake risk assessments.
+  * Maintains user-specific prediction records.
+
+* 🔊 **Risk-Level Alerts**
+
+  * Provides different alerts based on the calculated risk level.
+
+## 🛠️ Technologies Used
+
+* **Python**
+* **MySQL / MariaDB**
+* **USGS Earthquake API**
+* **Nominatim Reverse Geocoding**
+* **Haversine Formula**
+* **HTML / CSS**
+* **JavaScript**
+
+## 📋 Risk Levels
+
+| Risk Level | Magnitude Range | Description                  |
+| ---------- | --------------: | ---------------------------- |
+| Very Low   |           ≤ 2.0 | No significant threat        |
+| Low        |       2.1 – 3.9 | Minor shaking possible       |
+| Moderate   |       4.0 – 4.9 | Noticeable shaking           |
+| High       |       5.0 – 5.9 | Significant damage possible  |
+| Very High  |       6.0 – 6.9 | Major damage likely          |
+| Extreme    |           ≥ 7.0 | Catastrophic damage possible |
+
+> **Note:** These risk categories are project-defined assessment levels and should not be interpreted as official earthquake warnings.
+
+## ⚙️ How It Works
+
+```text
+User
+  │
+  ▼
+Enter Latitude & Longitude
+  │
+  ▼
+Validate Coordinates
+  │
+  ▼
+Fetch Recent Earthquake Data from USGS
+  │
+  ▼
+Calculate Distance using Haversine Formula
+  │
+  ▼
+Analyze Magnitude & Proximity
+  │
+  ▼
+Calculate Risk Level
+  │
+  ▼
+Display Risk Assessment
+  │
+  ▼
+Store Prediction History
+```
+
+## 💻 Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/prakrathishetty10-jpg/disaster_prediction_system.git
+cd disaster_prediction_system
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure the Database
+
+Install **MySQL/MariaDB** and create the required database and tables.
+
+The application uses:
+
+* `users_details` — stores user account information.
+* `eq_history` — stores earthquake prediction history.
+
+### 4. Run the Application
+
+```bash
+python test1.py
+```
+
+Follow the application's login/registration flow and provide geographic coordinates to perform an earthquake risk assessment.
+
+## 🗄️ Database Schema
 
 ### Users Table
+
 ```sql
 CREATE TABLE users_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,6 +139,7 @@ CREATE TABLE users_details (
 ```
 
 ### Earthquake History Table
+
 ```sql
 CREATE TABLE eq_history (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,90 +153,103 @@ CREATE TABLE eq_history (
 );
 ```
 
-## Usage
+## 📡 Data Sources & APIs
 
-### 1. Login/Registration
-- Use the login page to access the system
-- Register a new account if you don't have one
-- Use "Forgot Password" to reset your password
+### USGS Earthquake API
 
-### 2. Earthquake Prediction
-- Navigate to "Earthquake Prediction" from the sidebar
-- Enter latitude and longitude coordinates
-- The system will automatically:
-  - Fetch real-time USGS earthquake data
-  - Calculate risk based on nearby earthquakes
-  - Determine location name using reverse geocoding
-  - Provide risk assessment
+The application retrieves recent earthquake information from the USGS service and uses the available earthquake data for risk analysis.
 
-### 3. Risk Levels
-- **Very Low Risk (≤2.0)**: No significant threat
-- **Low Risk (2.1-3.9)**: Minor shaking possible
-- **Moderate Risk (4.0-4.9)**: Noticeable shaking
-- **High Risk (5.0-5.9)**: Significant damage possible
-- **Very High Risk (6.0-6.9)**: Major damage likely
-- **Extreme Risk (≥7.0)**: Catastrophic damage possible
+### Nominatim
 
-### 4. USGS Data
-- Data is automatically refreshed every 10 minutes
-- Use "Refresh USGS Data" button for manual refresh
-- View data status and last update time
+Nominatim is used for reverse geocoding to convert latitude and longitude coordinates into readable location information.
 
-## Technical Details
+## 🔬 Technical Implementation
 
-### USGS API Integration
-- Fetches earthquake data from the last 7 days
-- Uses Haversine formula for accurate distance calculations
-- Weighted magnitude calculation based on proximity
-- Automatic error handling and retry mechanisms
+### Haversine Formula
+
+The system uses the **Haversine formula** to calculate the distance between geographic coordinates.
+
+### Weighted Risk Analysis
+
+Earthquake magnitude and proximity are considered when calculating the risk level. Earthquakes closer to the selected coordinates can have a greater influence on the assessment.
 
 ### Coordinate Validation
-- Latitude: -90 to 90 degrees
-- Longitude: -180 to 180 degrees
-- Automatic validation and error messages
 
-### Geocoding
-- Uses Nominatim service for reverse geocoding
-- Converts coordinates to human-readable location names
-- Fallback handling for geocoding failures
+* Latitude: `-90` to `90`
+* Longitude: `-180` to `180`
 
-## Troubleshooting
+Invalid coordinates are rejected with appropriate validation feedback.
 
-### Common Issues
+### Automatic Data Refresh
 
-1. **Database Connection Error**:
-   - Ensure MySQL is running
-   - Check database credentials in the code
-   - Verify database and tables exist
+The system retrieves recent earthquake data periodically and also supports manual data refresh.
 
-2. **USGS Data Not Loading**:
-   - Check internet connection
-   - Verify USGS API accessibility
-   - Use manual refresh button
+## 📁 Project Structure
 
-3. **Geocoding Errors**:
-   - Check internet connection
-   - Some coordinates may not have location names
-   - System will fallback to coordinate display
+```text
+disaster_prediction_system/
+│
+├── admin.py
+├── test1.py
+├── song.py
+├── requirements.txt
+├── data.csv
+├── login.spec
+│
+├── dashboard_bg.png
+├── dashboard_bg_1.png
+├── dashboard_bg_2.png
+├── login_bg.png
+├── signup_bg.png
+├── logo.png
+├── robot.png
+├── danger.png
+├── warning.png
+├── success.png
+├── welcome.jpg
+│
+├── danger.mp3
+├── warning.mp3
+├── success.mp3
+│
+├── README.md
+└── .gitignore
+```
 
-### Performance Tips
+## 📌 Project Highlights
 
-- The system fetches data every 10 minutes to balance accuracy and performance
-- Large coordinate areas may take longer to process
-- Keep the application running for continuous data updates
+* Real-time earthquake data integration
+* Geographic coordinate-based risk assessment
+* Distance calculation using the Haversine formula
+* Weighted earthquake risk analysis
+* Reverse geocoding
+* User authentication
+* Prediction history
+* Risk-level classification
+* Automated earthquake data refresh
 
-## Contributing
+## 🔮 Future Enhancements
 
-Feel free to contribute to this project by:
-- Reporting bugs
-- Suggesting new features
-- Improving the prediction algorithms
-- Enhancing the user interface
+* Machine learning-based earthquake risk models
+* Interactive map visualization
+* Historical earthquake graphs and analytics
+* Email/SMS emergency notifications
+* Cloud deployment
+* Docker containerization
+* CI/CD pipeline using GitHub Actions
+* AWS-based deployment and monitoring
 
-## License
+## ⚠️ Disclaimer
 
-This project is open source and available under the MIT License.
+This project provides an **earthquake risk assessment** based on available earthquake data and project-defined risk calculations.
 
-## Disclaimer
+It is **not a guaranteed earthquake prediction system** and should not be used as the sole source for emergency or safety decisions.
 
-This system provides risk assessments based on available data and should not be used as the sole source for emergency decisions. Always follow official emergency guidelines and warnings.
+Always follow official earthquake warnings and emergency guidelines.
+
+## 👩‍💻 Author
+
+**Prakrithi Shetty**
+
+GitHub:
+https://github.com/prakrathishetty10-jpg
